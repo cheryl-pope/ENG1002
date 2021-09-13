@@ -51,7 +51,7 @@ class TestMetaclass(type):
             expected_err = load_test_file('err')
 
             msg = settings.get('msg', "Output did not match expected")
-            self.assertEqual(expected_output, output, msg=msg)
+            self.assertIn(expected_output.lower(), output.lower(), msg=msg)
             if expected_err is not None:
                 self.assertEqual(expected_err, err, msg=msg)
         fn.__doc__ = 'Test {0}'.format(dir_name)
