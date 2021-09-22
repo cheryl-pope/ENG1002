@@ -2,6 +2,7 @@
 
 # Prepare submission
 cp /autograder/submission/*.c /autograder/source/
+cp /autograder/submission/week8practice/*.c /autograder/source
 
 cd /autograder/source
 
