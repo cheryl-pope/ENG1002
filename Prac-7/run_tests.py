@@ -17,9 +17,9 @@ file_check = {
         "name": "Checking submitted files",
         "visibility": "visible"
 }
-if (len(missing_files) == 0)
+if (len(missing_files) == 0):
     filecheck.update({"output": "All code files submitted!"})
-else
+else:
     missing_string = "Missing some code files!\n"
     for path in missing_files:
         missing_string = missing_string + "\n" + 'Missing {0}'.format(path)
