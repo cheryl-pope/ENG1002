@@ -26,7 +26,7 @@ class TestMetaclass(type):
         def load_test_file(path):
             full_path = os.path.join(BASE_DIR, dir_name, path)
             if os.path.isfile(full_path):
-                with open(full_path) as f:
+                with open(full_path, 'rb') as f:
                     return f.read()
             return None
 
@@ -51,7 +51,7 @@ class TestMetaclass(type):
             expected_err = load_test_file('err')
 
             msg = settings.get('msg', "Output did not match expected")
-            self.assertIn(expected_output.lower(), output.lower(), msg=msg)
+            self.assertIn(expected_output, output, msg=msg)
             if expected_err is not None:
                 self.assertEqual(expected_err, err, msg=msg)
         fn.__doc__ = 'Test {0}'.format(dir_name)
