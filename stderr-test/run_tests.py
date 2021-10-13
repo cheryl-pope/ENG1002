@@ -7,7 +7,7 @@ if __name__ == '__main__':
     suite = unittest.TestSuite()
     parent_suite=suite
     # check for suites
-    for root, dirs, files in os.walk('./test_data', topdown=true):
+    for root, dirs, files in os.walk('./test_data', topdown=True):
         new_suite = unittest.TestSuite();
         parent_suite.addTest(new_suite);
 
