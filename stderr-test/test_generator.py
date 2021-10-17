@@ -8,6 +8,9 @@ import yaml
 
 BASE_DIR = './test_data'
 
+def strip_white_space(str):
+    return str.replace(" ", "").replace("\t", "").replace("\n", "")
+
 
 class TestMetaclass(type):
     """
@@ -53,7 +56,7 @@ class TestMetaclass(type):
             self.assertNotIn(b'No such file', err, msg="Could not compile program")
 
             msg = settings.get('msg', "Output did not match expected")
-            self.assertIn(expected_output, output, msg=msg)
+            self.assertIn(strip_white_space(expected_output), strip_white_space(output), msg=msg)
             if expected_err is not None:
                 self.assertEqual(expected_err, err, msg=msg)
         fn.__doc__ = 'Test {0}'.format(dir_name)

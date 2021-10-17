@@ -26,25 +26,34 @@ if __name__ == '__main__':
     with open('/autograder/results/results.json', 'w') as f:
         JSONTestRunner(visibility='visible', stream=f).run(suite)
 
-    with open('/autograder/results/results.json', 'r') as f:
-        print(f.read())
+    #with open('/autograder/results/results.json', 'r') as f:
+    #    print(f.read())
 
+    # could call post processor
     # check file presence and compilation
-    compile_string = ''
-    for file in ['temperatures01', 'odds_evens01', 'temperatures02']:
-        if os.path.exists('/autograder/submission/week9practice'):
-            submission_path = '/autograder/submission/week9practice/'
-        else:
-            submission_path = '/autograder/submission/'
-
-        if not os.path.exists(submission_path + file + '.c'):
-            compile_string = compile_string + "Missing file!!: " + file + '.c\n'
-        if not os.path.exists(submission_path + file + '.c'):
-            compile_string = compile_string + "Could not compile!!: " + file + '.c Test results reported for this file are not meaningful.\n'
-
     with open('/autograder/results/results.json', 'r+') as f:
         data = json.load(f)
-        data['tests'].insert(0, {"name": "Compilation Check", "output": compile_string})
+        compile_string = ''
+        compile_score = 1
+        for file in ['temperatures01', 'odds_evens01', 'temperatures02']:
+            if os.path.exists('/autograder/submission/week10practice'):
+                submission_path = '/autograder/submission/week10practice/'
+            else:
+                submission_path = '/autograder/submission/'
+
+            print('searching for: ' + file)
+            print(data['tests'])
+            if not os.path.exists(submission_path + file + '.c'):
+                compile_string = compile_string + "Missing file!!: " + file + '.c\n'
+                compile_score = 0
+                data['tests'] = [element for element in data['tests'] if not file in element['name']]
+                
+            if not os.path.exists(submission_path + file):
+                compile_string = compile_string + "Could not compile!!: " + file + '.c\n\t Test results reported for this file are not meaningful.\n'
+                compile_score = 0
+                data['tests'] = [element for element in data['tests'] if not file in element['name']]
+    
+        data['tests'].insert(0, {"name": "File and Compilation Check", "max_score": 1, "score": compile_score, "output": compile_string})
         f.seek(0)
         f.truncate(0)
         json.dump(data, f, indent=4)
