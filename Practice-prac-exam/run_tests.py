@@ -35,9 +35,9 @@ if __name__ == '__main__':
         data = json.load(f)
         compile_string = ''
         compile_score = 1
-        for file in ['temperatures01', 'odds_evens01', 'temperatures02']:
-            if os.path.exists('/autograder/submission/week10practice'):
-                submission_path = '/autograder/submission/week10practice/'
+        for file in ['q1', 'q2', 'q3', 'q3f']:
+            if os.path.exists('/autograder/submission/pracexam2practice'):
+                submission_path = '/autograder/submission/pracexam2practice/'
             else:
                 submission_path = '/autograder/submission/'
 
@@ -47,7 +47,7 @@ if __name__ == '__main__':
                 data['tests'] = [element for element in data['tests'] if not file in element['name']]
                 
             if not os.path.exists('/autograder/source/' + file):
-                compile_string = compile_string + "Could not compile!!: " + file + '.c\n\t Test results reported for this file are not meaningful.\n'
+                compile_string = compile_string + "Could not compile!!: " + file + '.c\n\n'
                 compile_score = 0
                 data['tests'] = [element for element in data['tests'] if not file in element['name']]
     

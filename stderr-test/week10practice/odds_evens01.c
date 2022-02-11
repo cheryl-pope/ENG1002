@@ -43,10 +43,10 @@ int main(void) {
 	for(int i=0; i<odds_count-1; i++) {
 		printf("%d ", odds[i]);
 	}
-	printf("%d\n", odds[odds_count-1]);
+	printf("%d \n", odds[odds_count-1]);
 
 	for(int i=0; i<evens_count-1; i++) {
 		printf("%d ", evens[i]);
 	}
-	printf("%d\n", evens[evens_count-1]);
+	printf("  %d\n", evens[evens_count-1]);
 }
